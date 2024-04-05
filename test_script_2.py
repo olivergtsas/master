@@ -1,3 +1,4 @@
+
 import random
 from copy import deepcopy
 #------------------------------------------------------------------------------
@@ -33,26 +34,25 @@ def consec(string):
 
 #------------------------------------------------------------------------------
 def check_winline(grid, winlines):
-    lines = []
+    lines = set()
     grid_x = []
     for winline_index, winline in enumerate(winlines):
         symbols = [grid[row][col] for row, col in winline]
         new_grid = deepcopy(grid)
         for row, col in winline:
             new_grid[row][col] = '■'
-
+    
         line_str = ''.join(symbols)
         symbol, count = consec(line_str)
-
+        
         if count > 1:
-         #  lines.add((symbol, count, tuple(winline[:count])))
-            lines.append((symbol, count, tuple(winline)))
+            lines.add((symbol, count, tuple(winline[:count])))
             grid_x.append(new_grid)
     if debug:
         for element in grid_x:
             print_nested_list_horizontally(element)
             print(':::::::::')
-
+    
     return lines
 
 
@@ -180,8 +180,8 @@ paytable = {
 # Sim
 #------------------------------------------------------------------------------
 
-num_spins = 10
-debug = 1
+num_spins = 1000000
+debug = 0
 
 # Output
 #------------------------------------------------------------------------------

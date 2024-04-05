@@ -1,4 +1,6 @@
+
 import random
+
 from copy import deepcopy
 #------------------------------------------------------------------------------
 
@@ -33,6 +35,7 @@ def consec(string):
 
 #------------------------------------------------------------------------------
 def check_winline(grid, winlines):
+    unique_check = set()
     lines = []
     grid_x = []
     for winline_index, winline in enumerate(winlines):
@@ -44,8 +47,8 @@ def check_winline(grid, winlines):
         line_str = ''.join(symbols)
         symbol, count = consec(line_str)
 
-        if count > 1:
-         #  lines.add((symbol, count, tuple(winline[:count])))
+        if count > 1 and tuple(winline) not in unique_check:
+            unique_check.add(tuple(winline))
             lines.append((symbol, count, tuple(winline)))
             grid_x.append(new_grid)
     if debug:
@@ -180,8 +183,8 @@ paytable = {
 # Sim
 #------------------------------------------------------------------------------
 
-num_spins = 10
-debug = 1
+num_spins = 100000
+debug = 0
 
 # Output
 #------------------------------------------------------------------------------
